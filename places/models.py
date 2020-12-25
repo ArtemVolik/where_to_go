@@ -16,6 +16,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
+    """Картинки. """
     title = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField()
 
