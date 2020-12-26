@@ -23,6 +23,6 @@ urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
     path('places/<int:place_id>/', place_properties, name='place_properties'),
-    path('tinymce/', include('tinymce.urls'))
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
