@@ -14,6 +14,13 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
+    def short_title(self):
+        start = self.title.find('«')
+        end = self.title.find('»')
+        if start + end > 0:
+            return self.title[start+1:end]
+        return self.title
+
 
 class Image(models.Model):
     """Картинки. """
