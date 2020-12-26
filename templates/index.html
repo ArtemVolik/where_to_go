@@ -42,8 +42,8 @@
   {% if geo_json %}
     {{ geo_json|json_script:'places-geojson' }}
   {% endif %}
+  {% verbatim %}
   <script id="app-template" type="text/template">
-    {% verbatim %}
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
       <div v-if="promptVisible" class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
         {% endverbatim %}
@@ -114,7 +114,7 @@
 
   <script src="{% static 'js/leaflet-sidebar.js' %}"></script>
 
-  <script>
+<script>
     var map = L.map('map');
     map.setView([55.753989, 37.623191], 11);
 
@@ -197,7 +197,6 @@
           return marker;
         }
     }).addTo(map);
-
 
     var sidebarApp = new Vue({
       el: '#sidebar-app',

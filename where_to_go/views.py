@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from places.models import Place, Image
+from django.urls import reverse
 
 
-def get_json():
+def get_json(request):
     geo_json = {
         "type": "FeatureCollection",
         "features": []
@@ -20,8 +21,7 @@ def get_json():
                 "properties": {
                     "title": place.short_title(),
                     "placeId": place.id,
-                    "detailsUrl":
-                        "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/moscow_legends.json"
+                    "detailsUrl": reverse('place_properties', args=(place.id,))
                 }
             }
         )
@@ -29,7 +29,7 @@ def get_json():
 
 
 def index(request):
-    geo_json = get_json()
+    geo_json = get_json(request)
     data = {'geo_json': geo_json}
     return render(request, 'index.html', context=data)
 
@@ -40,7 +40,7 @@ def place_properties(request, place_id):
         "title": place.title,
         "imgs": [image.image.url for image in place.images.all()],
         "description_short": place.description_short,
-        "description_long": place.description_long.replace("\\",''),
+        "description_long": place.description_long.replace("\\", ''),
         "coordinates": {
             "lat": place.lat,
             "long": place.lon
