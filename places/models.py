@@ -25,10 +25,15 @@ class Place(models.Model):
 class Image(models.Model):
     """Картинки. """
     title = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField()
+    image = models.ImageField(verbose_name='Картинка')
+    image_order = models.PositiveIntegerField(verbose_name='Позиция', default=0)
 
     def __str__(self):
         return f'{self.id} {self.title}'
+
+
+
+
 
 
 
