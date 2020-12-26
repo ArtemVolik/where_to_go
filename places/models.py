@@ -11,6 +11,10 @@ class Place(models.Model):
     unique_together = (("lon", "lat"),)
     index_together = ["lon", "lat"]
 
+    class Meta:
+        verbose_name = u'Место на карте'
+        verbose_name_plural = u'Места на карте'
+
     def __str__(self):
         return self.title
 
@@ -30,6 +34,8 @@ class Image(models.Model):
 
     class Meta:
         ordering = ["image_order"]
+        verbose_name = u'Изображение'
+        verbose_name_plural = u'Изображения'
 
     def __str__(self):
         return f'{self.id} {self.title}'
