@@ -28,6 +28,9 @@ class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
     image_order = models.PositiveIntegerField(verbose_name='Позиция', default=0)
 
+    class Meta:
+        ordering = ["image_order"]
+
     def __str__(self):
         return f'{self.id} {self.title}'
 
