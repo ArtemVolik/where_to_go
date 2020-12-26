@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from places.models import Place
+from django.http import HttpResponse, JsonResponse
+from places.models import Place, Image
 
 
 def get_json():
@@ -34,6 +34,16 @@ def index(request):
     return render(request, 'index.html', context=data)
 
 
-def place_view(request, place_id):
+def place_properties(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    return HttpResponse(f'{place.title}')
+    place_properties = {
+        "title": place.title,
+        "imgs": [image.image.url for image in place.images.all()],
+        "description_short": place.description_short,
+        "description_long": place.description_long.replace("\\",''),
+        "coordinates": {
+            "lat": place.lat,
+            "long": place.lon
+        }
+    }
+    return JsonResponse(place_properties, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 4})

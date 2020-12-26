@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index, place_view
+from .views import index, place_properties
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
-    path('places/<int:place_id>/', place_view),
+    path('places/<int:place_id>/', place_properties),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
