@@ -8,7 +8,7 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     readonly_fields = ('image_preview',)
     fields = ('image_order', 'image', 'image_preview', )
-    extra = 1
+    extra = 0
 
     def image_preview(self, obj):
         return format_html('<img src="{url}" height={height} />'.format(
