@@ -1,10 +1,17 @@
+"""Models of Places and related images."""
+
 from django.db import models
 from tinymce.models import HTMLField
 
+
 class Place(models.Model):
-    """Места. """
-    title = models.CharField(max_length=100, unique=True, db_index=True, verbose_name='Название')
-    description_short = models.CharField(max_length=255, verbose_name='Короткое описание')
+    """Места."""
+
+    title = models.CharField(
+        max_length=100, unique=True,
+        db_index=True, verbose_name='Название')
+    description_short = models.CharField(
+        max_length=255, verbose_name='Короткое описание')
     description_long = HTMLField(verbose_name='Описание')
     lon = models.FloatField()
     lat = models.FloatField()
@@ -18,7 +25,7 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
-    def short_title(self):
+    def short_title(self) -> str:
         start = self.title.find('«')
         end = self.title.find('»')
         if start + end > 0:
@@ -27,10 +34,13 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    """Картинки. """
-    title = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
+    """Картинки."""
+
+    title = models.ForeignKey(
+        Place, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(verbose_name='Картинка')
-    image_order = models.PositiveIntegerField(verbose_name='Позиция', default=0)
+    image_order = models.PositiveIntegerField(
+        verbose_name='Позиция', default=0)
 
     class Meta:
         ordering = ["image_order"]
@@ -39,10 +49,3 @@ class Image(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.title}'
-
-
-
-
-
-
-

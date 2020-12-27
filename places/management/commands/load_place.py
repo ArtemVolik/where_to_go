@@ -5,13 +5,15 @@ import os
 from io import BytesIO
 
 
-def get_response(url):
+def get_response(url) -> object:
     response = requests.get(url)
     response.raise_for_status()
     return response
 
 
-def save_place(place_properties):
+def save_place(place_properties) -> object:
+    """ Save place in Db and return it as object."""
+
     place = Place.objects.get_or_create(
         title=place_properties['title'],
         description_short=place_properties['description_short'],
@@ -27,9 +29,16 @@ class Command(BaseCommand):
     help = 'Add locations from external web'
 
     def add_arguments(self, parser):
-        parser.add_argument('json_url', type=str, help='Url adress of json file')
+        """Url parametr of command."""
+        parser.add_argument(
+            'json_url', type=str, help='Url adress of json file')
 
     def handle(self, *args, **kwargs):
+        """Save place object and related image objects.
+
+        Fetch json data and save place and related images to the
+        database. Information about json format located in README file.
+        """
         url = kwargs['json_url']
         response = get_response(url).json()
         place = save_place(response)
@@ -43,11 +52,3 @@ class Command(BaseCommand):
                 image_order=num)[0]
             image_object.save()
             image_object.image.save(filename, image, save=True)
-
-
-
-
-
-
-
-

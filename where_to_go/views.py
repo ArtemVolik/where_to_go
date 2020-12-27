@@ -1,10 +1,13 @@
+"""Main page of application."""
+
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from places.models import Place, Image
+from django.http import JsonResponse
+from places.models import Place
 from django.urls import reverse
 
 
 def get_json(request):
+    """Make geo_json with places data from DB."""
     geo_json = {
         "type": "FeatureCollection",
         "features": []
@@ -21,7 +24,8 @@ def get_json(request):
                 "properties": {
                     "title": place.short_title(),
                     "placeId": place.id,
-                    "detailsUrl": reverse('place_properties', args=(place.id,))
+                    "detailsUrl":
+                        reverse('place_properties', args=(place.id,))
                 }
             }
         )
@@ -29,12 +33,17 @@ def get_json(request):
 
 
 def index(request):
+    """Render the main page."""
     geo_json = get_json(request)
     data = {'geo_json': geo_json}
     return render(request, 'index.html', context=data)
 
 
 def place_properties(request, place_id):
+    """Return Place properties in Json.
+
+    Using for 'places/<int:place_id>/' page
+    """
     place = get_object_or_404(Place, id=place_id)
     place_properties = {
         "title": place.title,
@@ -46,4 +55,6 @@ def place_properties(request, place_id):
             "long": place.lon
         }
     }
-    return JsonResponse(place_properties, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+    return JsonResponse(
+        place_properties, safe=False,
+        json_dumps_params={'ensure_ascii': False, 'indent': 4})

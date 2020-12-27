@@ -1,4 +1,4 @@
-"""where_to_go URL Configuration
+"""where_to_go URL Configuration.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -25,4 +25,3 @@ urlpatterns = [
     path('places/<int:place_id>/', place_properties, name='place_properties'),
     path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
