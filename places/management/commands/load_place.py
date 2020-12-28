@@ -48,7 +48,7 @@ class Command(BaseCommand):
             image = BytesIO(response)
             filename = os.path.basename(url)
             image_object = place.images.get_or_create(
-                title=place.title,
+                image_place=place.title,
                 image_order=num)[0]
             image_object.save()
             image_object.image.save(filename, image, save=True)
