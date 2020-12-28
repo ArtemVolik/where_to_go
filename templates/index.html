@@ -39,9 +39,7 @@
     }
   </style>
 
-  {% if geo_json %}
-    {{ geo_json|json_script:'places-geojson' }}
-  {% endif %}
+  {{ geo_json|json_script:'places-geojson' }}
   {% verbatim %}
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
