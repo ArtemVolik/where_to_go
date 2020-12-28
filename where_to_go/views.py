@@ -49,7 +49,7 @@ def place_properties(request, place_id):
         "title": place.title,
         "imgs": [image.image.url for image in place.images.all()],
         "description_short": place.description_short,
-        "description_long": place.description_long.replace("\\", ''),
+        "description_long": place.description_long,
         "coordinates": {
             "lat": place.lat,
             "long": place.lon
