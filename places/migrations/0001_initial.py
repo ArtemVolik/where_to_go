@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(db_index=True, max_length=100, unique=True, verbose_name='Название')),
-                ('description_short', models.CharField(max_length=255, verbose_name='Короткое описание')),
-                ('description_long', models.TextField(verbose_name='Описание')),
+                ('short_description', models.CharField(max_length=255, verbose_name='Короткое описание')),
+                ('long_description', models.TextField(verbose_name='Описание')),
                 ('lon', models.FloatField()),
                 ('lat', models.FloatField()),
             ],

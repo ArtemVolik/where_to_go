@@ -10,9 +10,9 @@ class Place(models.Model):
     title = models.CharField(
         max_length=100, unique=True,
         db_index=True, verbose_name='Название')
-    description_short = models.CharField(
+    short_description = models.CharField(
         max_length=255, verbose_name='Короткое описание')
-    description_long = HTMLField(verbose_name='Описание')
+    long_description = HTMLField(verbose_name='Описание')
     lon = models.FloatField()
     lat = models.FloatField()
     unique_together = [("lon", "lat")]
@@ -37,7 +37,7 @@ class Image(models.Model):
     """Картинки."""
 
     title = models.ForeignKey(
-        Place, on_delete=models.CASCADE, related_name='images')
+        Place, on_delete=models.CASCADE, related_name='images', verbose_name='Название места картинки')
     image = models.ImageField(verbose_name='Картинка')
     image_order = models.PositiveIntegerField(
         verbose_name='Позиция', default=0)
