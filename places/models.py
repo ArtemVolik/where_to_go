@@ -15,7 +15,7 @@ class Place(models.Model):
     description_long = HTMLField(verbose_name='Описание')
     lon = models.FloatField()
     lat = models.FloatField()
-    unique_together = (("lon", "lat"),)
+    unique_together = [("lon", "lat")]
     index_together = ["lon", "lat"]
 
     class Meta:
