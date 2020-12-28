@@ -4,15 +4,6 @@ from .models import Place, Image
 from adminsortable2.admin import SortableInlineAdminMixin
 
 
-def image_preview(obj):
-    """Return preview Image object."""
-    return format_html('<img src="{url}" height={height} />'.format(
-        url=obj.image.url,
-        height=200
-        )
-    )
-
-
 class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     """Related images for the Place object page."""
 
@@ -20,6 +11,13 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     readonly_fields = ('image_preview',)
     fields = ('image_order', 'image', 'image_preview', )
     extra = 0
+
+    def image_preview(self, obj):
+        return format_html('<img src="{url}" height={height} />'.format(
+            url=obj.image.url,
+            height=200
+            )
+        )
 
 
 @admin.register(Place)
