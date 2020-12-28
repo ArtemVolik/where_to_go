@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+
 from .models import Place, Image
 from adminsortable2.admin import SortableInlineAdminMixin
 
@@ -13,11 +15,9 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 0
 
     def image_preview(self, obj):
-        return format_html('<img src="{url}" height={height} />'.format(
-            url=obj.image.url,
-            height=200
-            )
-        )
+        return format_html('<img src="{}" height={} />',
+                           mark_safe(obj.image.url),
+                           200)
 
 
 @admin.register(Place)
