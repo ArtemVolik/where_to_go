@@ -35,8 +35,8 @@ def get_json(request):
 def index(request):
     """Render the main page."""
     geo_json = get_json(request)
-    data = {'geo_json': geo_json}
-    return render(request, 'index.html', context=data)
+    locations = {'geo_json': geo_json}
+    return render(request, 'index.html', context=locations)
 
 
 def place_properties(request, place_id):
