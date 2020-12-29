@@ -16,9 +16,9 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
 
     def image_preview(self, obj):
         try:
-            image_preview = format_html('<img src="{}" height={} />',
-                               mark_safe(obj.image.url),
-                               200)
+            image_preview = format_html(
+                '<img src="{}" height={} />',
+                mark_safe(obj.image.url), 200)
             return image_preview
         except ValueError:
             return 'Картинка еще не загружена'
