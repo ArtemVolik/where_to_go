@@ -36,8 +36,8 @@ class Place(models.Model):
 class Image(models.Model):
     """Картинки."""
 
-    image_place = models.ForeignKey(
-        Place, on_delete=models.CASCADE, related_name='images', verbose_name='Название места картинки')
+    place_of_image = models.ForeignKey(
+        Place, on_delete=models.CASCADE, related_name='images', verbose_name='Место картинки')
     image = models.ImageField(verbose_name='Картинка')
     image_order = models.PositiveIntegerField(
         verbose_name='Позиция', default=0)
@@ -48,4 +48,4 @@ class Image(models.Model):
         verbose_name_plural = 'Изображения'
 
     def __str__(self):
-        return f'{self.id} {self.image_place}'
+        return f'{self.id} {self.place_of_image}'
