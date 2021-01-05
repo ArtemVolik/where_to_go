@@ -6,7 +6,7 @@ from places.models import Place
 from django.urls import reverse
 
 
-def get_json(request):
+def get_places_json(request):
     """Make geo_json with places data from DB."""
     geo_json = {
         "type": "FeatureCollection",
@@ -34,7 +34,7 @@ def get_json(request):
 
 def index(request):
     """Render the main page."""
-    geo_json = get_json(request)
+    geo_json = get_places_json(request)
     locations = {'geo_json': geo_json}
     return render(request, 'index.html', context=locations)
 
