@@ -25,6 +25,7 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
+    @property
     def short_title(self) -> str:
         start = self.title.find('«')
         end = self.title.find('»')

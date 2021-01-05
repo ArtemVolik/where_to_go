@@ -22,7 +22,7 @@ def get_places_json(request):
                     "coordinates": [place.lon, place.lat]
                 },
                 "properties": {
-                    "title": place.short_title(),
+                    "title": place.short_title,
                     "placeId": place.id,
                     "detailsUrl":
                         reverse('place_properties', args=(place.id,))
