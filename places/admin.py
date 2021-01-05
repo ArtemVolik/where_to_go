@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-
 from .models import Place, Image
 from adminsortable2.admin import SortableInlineAdminMixin
 
@@ -15,13 +14,12 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 0
 
     def image_preview(self, obj):
-        try:
-            image_preview = format_html(
-                '<img src="{}" height={} />',
-                mark_safe(obj.image.url), 200)
-            return image_preview
-        except ValueError:
+        if not obj.image:
             return 'Картинка еще не загружена'
+        image_preview = format_html(
+            '<img src="{}" height={} />',
+            obj.image.url, 200)
+        return image_preview
 
 
 
