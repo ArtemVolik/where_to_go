@@ -9,8 +9,8 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
     """Related images for the Place object page."""
 
     model = Image
-    readonly_fields = ('image_preview',)
-    fields = ('image_order', 'image', 'image_preview', )
+    readonly_fields = ['image_preview']
+    fields = ['image_order', 'image', 'image_preview']
     extra = 0
 
     def image_preview(self, obj):
@@ -27,7 +27,7 @@ class ImageTabularInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(admin.ModelAdmin):
     """Show and edit related images on Place object page."""
 
-    inlines = (ImageTabularInline,)
+    inlines = [ImageTabularInline]
     search_fields = ['title']
 
 
